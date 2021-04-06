@@ -43,26 +43,26 @@ docker images are set to auto-build on each git push
 | **GET**   |       /find/                |  READ contacts with partial search     |
 
 ### DB schema
- var doc = {
-     "name": {
-       "first": String,
-       "middle": String,
-       "last": String 
-     },
-     "address": {
-       "street": String,
-       "city": String,
-       "state": String,
-       "zip": String
-     },
-     "phone": [
-       {
-         "number": String,
-         "type": String ["home" | "work" | "mobile"]
-       }
-     ],
-     "email": String (unique)
-   };
+ var doc = { <br>
+     "name": { <br>
+       "first": String, <br>
+       "middle": String, <br>
+       "last": String <br>
+     }, <br>
+     "address": { <br>
+       "street": String, <br>
+       "city": String, <br>
+       "state": String, <br>
+       "zip": String <br>
+     }, <br>
+     "phone": [ <br>
+       { <br>
+         "number": String, <br>
+         "type": String ["home" | "work" | "mobile"] <br>
+       } <br>
+     ], <br>
+     "email": String (unique) <br>
+   }; <br>
 
 ### Considerations made
 
