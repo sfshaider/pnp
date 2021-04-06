@@ -25,7 +25,8 @@ app.post('/contacts/', (req, res) => {
                     // console.log('user already exists ' + err);
                 } else {
                     res.status(201).send(req.body.name.first + " " + req.body.name.last + " was created");
-                }
+                    // res.send(newDoc);
+                    }
                 });
         }
     });
@@ -44,7 +45,7 @@ app.get('/contacts/', (req, res) => {
                 user.name.first = user.name.first.charAt(0).toUpperCase() + user.name.first.slice(1);
                 user.name.last = user.name.last.charAt(0).toUpperCase() + user.name.last.slice(1);
               });
-            res.status(200).send(result)
+            res.status(200).send(result);
         }
     });
 });
@@ -56,10 +57,7 @@ app.get('/contacts/:id', (req, res) => {
             res.status(404).send('invalid id or does not exist');
             // console.log('invalid id or does not exist ' + err);
         } else {
-            var result = docs;
-                result[0].name.first = result[0].name.first.charAt(0).toUpperCase() + result[0].name.first.slice(1);
-                result[0].name.last = result[0].name.last.charAt(0).toUpperCase() + result[0].name.last.slice(1);
-            res.status(200).send(result)
+            res.status(200).send(docs);
             }
         });
 });
