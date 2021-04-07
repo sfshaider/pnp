@@ -26,7 +26,7 @@ describe("Find A Contact", () => {
 
 describe("Find A Contact (Partial Search)", () => {
   it("should find a contact", async () => {
-    const res = await request(app).get("/find?=" + toFind);
+    const res = await request(app).get("/find?=" + partialSearch);
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual(expect.any(Array));
   });
