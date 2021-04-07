@@ -69,7 +69,7 @@ app.get('/contacts/:id', (req, res) => {
 });
 
 //FIND CONTACT (using partial first or last name - input to be provided as key) 
-// http://localhost:{PORT}/find?
+// http://localhost:{PORT}/find?=
 
 app.get('/find', (req, res) => {
     let query = req._parsedUrl.query.substring(1);
