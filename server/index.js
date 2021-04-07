@@ -68,8 +68,8 @@ app.get('/contacts/:id', (req, res) => {
         });
 });
 
-//FIND CONTACT (using partial first or last name - input to be provided as parameter) 
-// http://localhost:{PORT}/find?key=
+//FIND CONTACT (using partial first or last name - input to be provided as key) 
+// http://localhost:{PORT}/find?=
 
 app.get('/find', (req, res) => {
     let query = req.query.key;
@@ -78,12 +78,16 @@ app.get('/find', (req, res) => {
             res.status(404).send('unable to access contact list');
             // console.log('unable to access contact list ' + err);
         } else {
-            var result = docs;
-            result.forEach(function(user) {
-                user.name.first = user.name.first.charAt(0).toUpperCase() + user.name.first.slice(1);
-                user.name.last = user.name.last.charAt(0).toUpperCase() + user.name.last.slice(1);
-              });
-            res.status(200).send(result)
+            if (docs.length === 0) {
+            res.status(400).send('no possible matches');
+             } else {
+                var result = docs;
+                result.forEach(function(user) {
+                    user.name.first = user.name.first.charAt(0).toUpperCase() + user.name.first.slice(1);
+                    user.name.last = user.name.last.charAt(0).toUpperCase() + user.name.last.slice(1);
+                  });
+                res.status(200).send(result);
+              };
         }
     });
 });

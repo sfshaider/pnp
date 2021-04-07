@@ -4,6 +4,7 @@ const app = require("../server/index.js");
 const db = require("../db/contact.js");
 
 let toFind = '0QZ2AzOn5kV7Rzqg'
+let partialSearch = 'an'
 let toUpdate = '8qezrrVjHKdb8pUV'
 let toCreateAndThenDelete = '100'
 
@@ -18,6 +19,14 @@ describe("Find All Contacts", () => {
 describe("Find A Contact", () => {
   it("should find a contact", async () => {
     const res = await request(app).get("/contacts/" + toFind);
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toEqual(expect.any(Array));
+  });
+});
+
+describe("Find A Contact (Partial Search)", () => {
+  it("should find a contact", async () => {
+    const res = await request(app).get("/find?=" + toFind);
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual(expect.any(Array));
   });
@@ -94,7 +103,8 @@ describe("Update A Contact", () => {
 
 describe("Delete A Contact", () => {
   it("should delete a contact", async () => {
-    const res = await request(app).delete("/contacts/" + toCreateAndThenDelete);
+    const res = await request(app)
+    .delete("/contacts/" + toCreateAndThenDelete);
     expect(res.statusCode).toEqual(200);
   });
 });
