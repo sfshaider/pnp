@@ -69,10 +69,10 @@ app.get('/contacts/:id', (req, res) => {
 });
 
 //FIND CONTACT (using partial first or last name - input to be provided as key) 
-// http://localhost:{PORT}/find?=
+// http://localhost:{PORT}/find?
 
 app.get('/find', (req, res) => {
-    let query = req.query.key;
+    let query = req._parsedUrl.query.substring(1);
     db.contactInfo.find( { $or: [ { 'name.first': new RegExp(query) }, { 'name.last': new RegExp(query) } ] }, function (err, docs) {
         if (err) {
             res.status(404).send('unable to access contact list');

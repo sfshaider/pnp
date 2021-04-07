@@ -4,7 +4,7 @@ const app = require("../server/index.js");
 const db = require("../db/contact.js");
 
 let toFind = '0QZ2AzOn5kV7Rzqg'
-let partialSearch = 'an'
+let partialSearch = 'ax'
 let toUpdate = '8qezrrVjHKdb8pUV'
 let toCreateAndThenDelete = '100'
 
