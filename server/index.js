@@ -57,7 +57,13 @@ app.get('/contacts/:id', (req, res) => {
             res.status(404).send('invalid id or does not exist');
             // console.log('invalid id or does not exist ' + err);
         } else {
-            res.status(200).send(docs);
+            if (docs.length === 0) {
+                res.status(400).send('invalid id or does not exist');
+            } else {
+                docs[0].name.first = docs[0].name.first.charAt(0).toUpperCase() + docs[0].name.first.slice(1);
+                docs[0].name.last = docs[0].name.last.charAt(0).toUpperCase() + docs[0].name.last.slice(1);
+                res.status(200).send(docs);
+             }
             }
         });
 });
@@ -70,7 +76,7 @@ app.get('/find', (req, res) => {
     db.contactInfo.find( { $or: [ { 'name.first': new RegExp(query) }, { 'name.last': new RegExp(query) } ] }, function (err, docs) {
         if (err) {
             res.status(404).send('unable to access contact list');
-            console.log('unable to access contact list ' + err);
+            // console.log('unable to access contact list ' + err);
         } else {
             var result = docs;
             result.forEach(function(user) {
@@ -93,7 +99,12 @@ app.put('/contacts/:id', (req, res) => {
             res.status(404).send('unable to update user ' + req.body.name.first + " " + req.body.name.last);
             // console.log('unable to update user ' + err);
         } else {
-            res.status(200).send(req.body.name.first + " " + req.body.name.last + " was updated");
+            if (numReplaced > 0){
+                res.status(200).send(req.body.name.first + " " + req.body.name.last + " was updated");
+            }
+            else {
+                res.status(400).send('no record updated');  
+            }
             // console.log('documents updated: ', numReplaced);
         }
     });
@@ -106,8 +117,18 @@ app.delete('/contacts/:id', (req, res) => {
             res.status(404).send('unable to remove id: ' + req.params.id);
             // console.log('unable to remove id: ' + err);
         } else {
-            res.status(200).send('id removed successfully: ' + req.params.id);
-            // console.log('documents removed: ', numRemoved);
+            if (numRemoved > 0) {
+                res.status(200).send('id removed successfully: ' + req.params.id);
+            }
+            else {
+                if (numRemoved > 0){
+                    res.status(200).send(req.body.name.first + " " + req.body.name.last + " was deleted");
+                                // console.log('documents removed: ', numRemoved);
+                }
+                else {
+                    res.status(400).send('no record deleted');  
+                }
+            }
         }
     });
 });
