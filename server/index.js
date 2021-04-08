@@ -124,16 +124,11 @@ app.delete('/contacts/:id', (req, res) => {
             if (numRemoved > 0) {
                 res.status(200).send('id removed successfully: ' + req.params.id);
             }
-            else {
-                if (numRemoved > 0){
-                    res.status(200).send(req.body.name.first + " " + req.body.name.last + " was deleted");
-                                // console.log('documents removed: ', numRemoved);
-                }
                 else {
                     res.status(400).send('no record deleted');  
                 }
             }
-        }
+        
     });
 });
 
